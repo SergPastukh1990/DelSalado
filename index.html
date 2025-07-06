@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reap-powered Crypto Wallet MVP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg style="display:none">
+    <symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+    </symbol>
+    <symbol id="i-k8s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </symbol>
+    <symbol id="i-ci" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64M3.51 15A9 9 0 0 0 18.36 18.36"></path>
+    </symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+    </symbol>
+</svg>
+<header class="main-header">
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </header>
+
+    <main id="presentation">
+        <section class="slide hero active">
+            <div class="blob-top-right"></div>
+            <h1>Reap-powered Crypto Wallet MVP</h1>
+            <p><em>Implementation Options & Next Steps</em></p>
+            <div class="blob-bottom-left"></div>
+        </section>
+
+        <section class="slide">
+            <div class="blob-top-right"></div>
+            <h2>Hosting & Responsibility Model</h2>
+            <div class="grid-table col-3">
+                <div class="table-header">Responsibility</div>
+                <div class="table-header">Involve</div>
+                <div class="table-header">Client</div>
+                <div><svg class="icon"><use href="#i-cloud"></use></svg>Cloud account & resource billing</div>
+                <div>—</div>
+                <div>✓</div>
+                <div><svg class="icon"><use href="#i-k8s"></use></svg>Kubernetes cluster, DB, secrets</div>
+                <div>Provision via Terraform/Helm, then hand-over</div>
+                <div>✓</div>
+                <div><svg class="icon"><use href="#i-ci"></use></svg>CI/CD (GitLab)</div>
+                <div>Our SaaS <strong>or</strong> your GitLab</div>
+                <div>—</div>
+                <div><svg class="icon"><use href="#i-monitor"></use></svg>Monitoring / alerts (Grafana + Prometheus + Sentry)</div>
+                <div>Optional add-on</div>
+                <div>—</div>
+                <div><svg class="icon"><use href="#i-shield"></use></svg>End-user data</div>
+                <div>—</div>
+                <div>✓ (stored only in client’s cloud)</div>
+            </div>
+            <p class="footnote"><em>(Default cloud – DigitalOcean; GCP/Azure possible on request.)</em></p>
+            <div class="blob-bottom-left"></div>
+        </section>
+
+        <section class="slide">
+             <div class="blob-top-right"></div>
+            <h2>Two Implementation Paths & Economics</h2>
+            <div class="comparison-cards">
+                <div class="card">
+                    <h3>A. eWallet + CryptoHub + Card</h3>
+                    <ul>
+                        <li><span class="card-label">Launch time:</span> <span class="badge badge-blue">≈ 2.5 months</span></li>
+                        <li><span class="card-label">Included scope:</span> Full B2C + B2B, invoices, multi-asset</li>
+                        <li><span class="card-label">CapEx range*:</span> <span class="badge badge-green"><span class="counter" data-from="0" data-to="52">0</span> – <span class="counter" data-from="0" data-to="56">0</span> k USD</span></li>
+                        <li><span class="card-label">Pros:</span> Fastest go-live, rich functionality</li>
+                        <li><span class="card-label">Cons:</span> Legacy Py 3.8, extra modules</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>B. Lean Custom MVP</h3>
+                    <ul>
+                        <li><span class="card-label">Launch time:</span> <span class="badge badge-blue">≈ 3–3.5 months</span></li>
+                        <li><span class="card-label">Included scope:</span> 8 core features</li>
+                        <li><span class="card-label">CapEx range*:</span> <span class="badge badge-green"><span class="counter" data-from="0" data-to="40">0</span> – <span class="counter" data-from="0" data-to="50">0</span> k USD</span></li>
+                        <li><span class="card-label">Pros:</span> Lowest starting budget, modern stack</li>
+                        <li><span class="card-label">Cons:</span> B2B & extensions = separate scope</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footnote"><em>*Final number fixed after Discovery.</em></p>
+             <div class="blob-bottom-left"></div>
+        </section>
+
+        <section class="slide">
+             <div class="blob-top-right"></div>
+            <h2>Why a Discovery Sprint is Essential</h2>
+            <div class="grid-table card col-4">
+                <div class="table-header">#</div>
+                <div class="table-header">What we do</div>
+                <div class="table-header">Why it matters</div>
+                <div class="table-header">Outcome</div>
+                <div><svg class="icon"><use href="#i-monitor"></use></svg>1</div>
+                <div>Joint workshops (Involve × your Product × Reap)</div>
+                <div>Align “want” vs “need”; lock MVP</div>
+                <div>Signed feature list & Phase 2 backlog</div>
+                <div><svg class="icon"><use href="#i-monitor"></use></svg>2</div>
+                <div>Deep dive into Reap API</div>
+                <div>Validate hold/settle, 3-DS, PCI impact</div>
+                <div>Sequence diagram + mandatory controls</div>
+                <div><svg class="icon"><use href="#i-monitor"></use></svg>3</div>
+                <div>Architecture decisions</div>
+                <div>Master balance, auto-swap, fee-engine</div>
+                <div>Architecture map + cloud choice</div>
+                <div><svg class="icon"><use href="#i-monitor"></use></svg>4</div>
+                <div>Scaling & white-label readiness</div>
+                <div>Multi-tenant config, fee wallets, branding</div>
+                <div>Plan “1 → N brands”, cost of WL extras</div>
+                <div><svg class="icon"><use href="#i-monitor"></use></svg>5</div>
+                <div>Final budget & timeline</div>
+                <div>No scope = no reliable price</div>
+                <div>Estimate ±5 %, sprint calendar, SoW draft</div>
+            </div>
+             <div class="blob-bottom-left"></div>
+        </section>
+
+        <section class="slide">
+             <div class="blob-top-right"></div>
+            <h2>Discovery Sprint – Lean vs Full</h2>
+             <div class="comparison-cards">
+                <div class="card">
+                    <h3>Lean</h3>
+                    <ul>
+                        <li><span class="card-label">Duration:</span> <span class="badge badge-blue">3 work-days</span></li>
+                        <li><span class="card-label">Hours / roles:</span> TL 24 PM 24 UX 16</li>
+                        <li><span class="card-label">Deliverables:</span> Scope draft, diagram, budget ±15 %</li>
+                        <li><span class="card-label">Fix price:</span> <span class="badge badge-green">≈ 2 620 USD</span></li>
+                        <li><span class="card-label">Deducted:</span> ✓</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Full</h3>
+                    <ul>
+                        <li><span class="card-label">Duration:</span> <span class="badge badge-blue">5 work-days</span></li>
+                        <li><span class="card-label">Hours / roles:</span> TL 40 PM 40 UX 24</li>
+                        <li><span class="card-label">Deliverables:</span> + OpenAPI, mock-ups, budget ±5 %</li>
+                        <li><span class="card-label">Fix price:</span> <span class="badge badge-green">≈ 4 640 USD</span></li>
+                        <li><span class="card-label">Deducted:</span> ✓</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="footnote"><em>(Goal – also trim scope to your budget ceiling if needed.)</em></p>
+             <div class="blob-bottom-left"></div>
+        </section>
+
+        <section class="slide">
+             <div class="blob-top-right"></div>
+            <h2>Optional Support & Security Catalog</h2>
+            <ul class="icon-list">
+                <li><svg class="icon"><use href="#i-monitor"></use></svg>DevOps monitoring 24/7 (alerting, on-call rota)</li>
+                <li><svg class="icon"><use href="#i-ci"></use></svg>Patch management (Python, libs, Docker base images)</li>
+                <li><svg class="icon"><use href="#i-shield"></use></svg>Incident reaction (fixed hour pool or T&M)</li>
+                <li><svg class="icon"><use href="#i-shield"></use></svg>Quarterly vulnerability scan</li>
+                <li><svg class="icon"><use href="#i-shield"></use></svg>Release pentest (black/grey box)</li>
+                <li><svg class="icon"><use href="#i-ci"></use></svg>CI/CD upkeep (GitLab runners, Helm charts, secret rotation)</li>
+            </ul>
+            <p class="footnote"><em>(Pricing defined after option A/B selection.)</em></p>
+             <div class="blob-bottom-left"></div>
+        </section>
+
+        <section class="slide">
+             <div class="blob-top-right"></div>
+            <h2>Built-in Reliability & Security (Technical)</h2>
+            <div class="grid-table card col-2">
+                <div class="table-header">Component</div>
+                <div class="table-header">Solution</div>
+                <div><svg class="icon"><use href="#i-shield"></use></svg>Closed perimeter</div>
+                <div>Cluster reachable only via VPN gateway</div>
+                <div><svg class="icon"><use href="#i-k8s"></use></svg>Data redundancy</div>
+                <div>Primary + standby DB, synchronous replica</div>
+                <div><svg class="icon"><use href="#i-cloud"></use></svg>Auto-snapshots</div>
+                <div>Nightly backups, retention <span class="badge badge-blue">≥ 14 days</span></div>
+                <div><svg class="icon"><use href="#i-shield"></use></svg>Encryption</div>
+                <div>Encrypted disks; secrets in Vault</div>
+                <div><svg class="icon"><use href="#i-shield"></use></svg>Least privilege</div>
+                <div><span class="badge badge-green">MFA</span> + need-to-know; full audit logs</div>
+                <div><svg class="icon"><use href="#i-cloud"></use></svg>Cloud firewall & segmentation</div>
+                <div>NetworkPolicy across namespaces</div>
+                <div><svg class="icon"><use href="#i-k8s"></use></svg>Fail-over</div>
+                <div>K8s health-checks, auto-restart</div>
+            </div>
+             <div class="blob-bottom-left"></div>
+        </section>
+
+        <section class="slide">
+             <div class="blob-top-right"></div>
+            <h2>Next Steps</h2>
+            <ol class="icon-list">
+                <li><span>1.</span>Choose implementation path <strong>A</strong> or <strong>B</strong>.</li>
+                <li><span>2.</span>Select <strong>Discovery level</strong> (Lean / Full).</li>
+                <li><span>3.</span>Book workshop dates & confirm PCI feedback with Reap.</li>
+                <li><span>4.</span>Post-Discovery → lock budget, sign SoW, kick-off Sprint 1.</li>
+            </ol>
+            <a href="mailto:sales@involve.software" class="cta">Book Workshop</a>
+             <div class="blob-bottom-left"></div>
+        </section>
+    </main>
+
+    <div class="navigation glass">
+        <button id="prev-btn" class="arrow">&larr;</button>
+        <ul class="dot-pagination" id="dot-pagination"></ul>
+        <button id="next-btn" class="arrow">&rarr;</button>
+    </div>
+
+    <footer>
+        <p>© 2025 Involve Software</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html> 
